@@ -1,0 +1,13 @@
+TEST VENDOR SECURITY OVERVIEW
+
+Vendor: ClearPath Health Technologies
+Product: CareRoute Assist
+
+Security and privacy information:
+- Customer data is encrypted at rest and in transit.
+- Human staff review AI-generated recommendations before taking action.
+- Customer data is not used to train foundation models.
+- Production data is deleted within 30 days after contract termination.
+- The vendor has not provided details about backup retention or key-management practices.
+
+This document is synthetic and created only for workflow testing.

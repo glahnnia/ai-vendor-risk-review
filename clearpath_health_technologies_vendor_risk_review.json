@@ -1,0 +1,93 @@
+{
+  "vendor_name": "ClearPath Health Technologies",
+  "product_name": "CareRoute Assist",
+  "evidence_observed": [
+    "ClearPath_Test_Security_Overview(1).txt: 'Customer data is encrypted at rest and in transit.'",
+    "ClearPath_Test_Security_Overview(1).txt: 'Human staff review AI-generated recommendations before taking action.'",
+    "ClearPath_Test_Security_Overview(1).txt: 'Customer data is not used to train foundation models.'",
+    "ClearPath_Test_Security_Overview(1).txt: 'Production data is deleted within 30 days after contract termination.'",
+    "ClearPath_Test_Security_Overview(1).txt: 'The vendor has not provided details about backup retention or key-management practices.'",
+    "ClearPath_Conflicting_Evidence.docx: 'Customer data may be retained in encrypted backup systems for up to 90 days after contract termination before full backup rotation is completed.'",
+    "ClearPath_Conflicting_Evidence.docx: 'Production data is not intentionally used to train foundation models.'",
+    "ClearPath_Conflicting_Evidence.docx: 'De-identified or aggregated customer-derived data may be used for internal model evaluation, performance tuning, and product improvement.'",
+    "ClearPath_Conflicting_Evidence.docx: 'Human staff review selected AI-generated recommendations, but not every recommendation requires manual review before downstream action.'",
+    "ClearPath_Conflicting_Evidence.docx: 'Encryption keys are vendor-managed. Key rotation schedules and hardware security module usage are not documented.'",
+    "ClearPath_Conflicting_Evidence.docx: 'If there is a conflict between this supplemental note and other vendor documentation, this supplemental note should be treated as the most current description of vendor practices.'"
+  ],
+  "risk_findings": [
+    "Data retention ambiguity: conflicting statements about post-termination retention (30 days deletion vs. up to 90 days in backups) create uncertainty about residual customer data exposure and contractual compliance.",
+    "Model training and data use ambiguity: one document asserts customer data is not used to train foundation models while another permits use of de-identified/aggregated customer-derived data for model evaluation/tuning, raising risks around re-identification, consent, and contractual/regulated-data use.",
+    "Human-review coverage gap: documents conflict on whether all AI-generated recommendations are human-reviewed; selective review may allow automated recommendations to drive downstream actions without human oversight.",
+    "Key management and backup controls undocumented: vendor-managed encryption keys and lack of documented rotation/HSM/backups practices increase cryptographic and recovery risk."
+  ],
+  "uncertainties": [
+    "Whether 'deleted within 30 days' applies to backups or only primary systems and how deletion is implemented and validated.",
+    "The exact definitions and de-identification techniques applied to 'de-identified or aggregated customer-derived data' and whether such data may be shared externally or used to train models.",
+    "The criteria, percentage, and workflow for 'selected' AI-generated recommendations that receive human review and what downstream actions are allowed without review.",
+    "Details of key management (KMS/HSM usage, rotation schedule, access controls) and backup encryption practices."
+  ],
+  "document_conflicts": [
+    {
+      "topic": "Post-termination data retention",
+      "documents_involved": [
+        "ClearPath_Test_Security_Overview(1).txt",
+        "ClearPath_Conflicting_Evidence.docx"
+      ],
+      "conflicting_claims": [
+        "ClearPath_Test_Security_Overview(1).txt: 'Production data is deleted within 30 days after contract termination.'",
+        "ClearPath_Conflicting_Evidence.docx: 'Customer data may be retained in encrypted backup systems for up to 90 days after contract termination before full backup rotation is completed.'"
+      ],
+      "explanation": "One document states production data is deleted within 30 days; the other indicates backups may retain customer data for up to 90 days post-termination. These claims are materially inconsistent regarding residual retention timelines and should be reconciled against contractual obligations and technical backup processes.",
+      "requires_human_resolution": true
+    },
+    {
+      "topic": "Use of customer data for model training and improvement",
+      "documents_involved": [
+        "ClearPath_Test_Security_Overview(1).txt",
+        "ClearPath_Conflicting_Evidence.docx"
+      ],
+      "conflicting_claims": [
+        "ClearPath_Test_Security_Overview(1).txt: 'Customer data is not used to train foundation models.'",
+        "ClearPath_Conflicting_Evidence.docx: 'Production data is not intentionally used to train foundation models.' and 'De-identified or aggregated customer-derived data may be used for internal model evaluation, performance tuning, and product improvement.'"
+      ],
+      "explanation": "One document gives an absolute denial of use for training; the other qualifies that training is not intentional while permitting de-identified/aggregated customer-derived data for evaluation/tuning. These are materially different positions about permissible data uses and risk to customer-derived data.",
+      "requires_human_resolution": true
+    },
+    {
+      "topic": "Scope of human review for AI-generated recommendations",
+      "documents_involved": [
+        "ClearPath_Test_Security_Overview(1).txt",
+        "ClearPath_Conflicting_Evidence.docx"
+      ],
+      "conflicting_claims": [
+        "ClearPath_Test_Security_Overview(1).txt: 'Human staff review AI-generated recommendations before taking action.'",
+        "ClearPath_Conflicting_Evidence.docx: 'Human staff review selected AI-generated recommendations, but not every recommendation requires manual review before downstream action.'"
+      ],
+      "explanation": "One document implies all AI-generated recommendations are reviewed prior to action; the other specifies only selected recommendations are reviewed. This affects the level of human oversight and potential for automated actions without review.",
+      "requires_human_resolution": true
+    }
+  ],
+  "follow_up_questions": [
+    "Provide the formal data retention and deletion policy covering primary systems and backups, and confirm maximum post-termination retention period for all customer data (including backups).",
+    "Clarify whether any customer-derived data (including de-identified/aggregated data) is used for model training or external model improvement, and describe de-identification methods and risk assessments performed.",
+    "Describe the human-review policy: criteria for selecting recommendations for review, percent or volume reviewed, roles responsible, and whether any categories of recommendations are auto-executed.",
+    "Provide documented key management details: whether keys are stored in a KMS/HSM, rotation schedule, access controls, and backup encryption practices."
+  ],
+  "human_review_required": true,
+  "human_review_notes": [
+    "Verify and reconcile conflicting retention and data-use claims across documents; obtain contractual commitments (SLA/contract language) and technical evidence (backup configs, deletion logs, snapshots) to confirm actual retention behavior.",
+    "Assess privacy/regulatory implications of permitted use of de-identified/aggregated data (re-identification risk, consent, and any required DTA/BAA). Request technical description of de-identification and data flows for model evaluation.",
+    "Evaluate operational risk from selective human review by requesting metrics on review coverage and examples of automated downstream actions. Confirm mitigating controls (alerts, escalation, audit trails).",
+    "Request and review key-management documentation (KMS/HSM architecture diagrams, access policies, rotation records) and proof of encryption/enforced controls for backups."
+  ],
+  "intake_summary": {
+    "documents_submitted": 2,
+    "documents_processed": 2,
+    "documents_failed": 0,
+    "processed_files": [
+      "ClearPath_Test_Security_Overview(1).txt",
+      "ClearPath_Conflicting_Evidence.docx"
+    ],
+    "failed_files": []
+  }
+}

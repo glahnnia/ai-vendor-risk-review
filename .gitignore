@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Local/generated review outputs
+*_vendor_risk_review.json
+*_vendor_risk_review.docx
+*_document_intake_failure.json
+
+# Local secrets/environment files
+.env
+.env.*

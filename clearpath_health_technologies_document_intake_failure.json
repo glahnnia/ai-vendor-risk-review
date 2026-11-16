@@ -1,0 +1,19 @@
+{
+  "vendor_name": "ClearPath Health Technologies",
+  "product_name": "CareRoute Assist",
+  "analysis_completed": false,
+  "reason": "No usable vendor documents were available.",
+  "intake_summary": {
+    "uploaded_document_count": 1,
+    "usable_document_count": 0,
+    "failed_document_count": 1,
+    "processed_files": [],
+    "failed_files": [
+      {
+        "filename": "Missing_Test_Document.txt",
+        "status": "missing",
+        "reason": "File was not found in the workflow folder."
+      }
+    ]
+  }
+}
