@@ -10,6 +10,16 @@ The system is explicitly designed **not to autonomously approve or reject vendor
 
 ---
 
+## Application Preview
+
+### Vendor Intake and Document Upload
+
+![AI Vendor Risk Review vendor intake and document upload](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%201.png)
+
+*The Streamlit interface collects vendor information and accepts multiple documents for review.*
+
+---
+
 ## Current Implementation
 
 The current version is implemented locally using:
@@ -348,16 +358,16 @@ A final end-to-end regression test was completed using the synthetic **ClearPath
 
 The test processed:
 
-- `ClearPath_Test_Security_Overview.txt`
-- A generated `ClearPath_Conflicting_Evidence.docx` fixture
+- `test_fixtures/ClearPath_Test_Security_Overview.txt`
+- A generated `test_fixtures/ClearPath_Conflicting_Evidence.docx` fixture
 
-The DOCX fixture can be recreated using:
+The DOCX fixture can be recreated from the repository root using:
 
-```text
-create_test_docx.py
+```bash
+python scripts/create_test_docx.py
 ```
 
-A PDF version of the conflicting-evidence fixture is also included in this repository for demonstration and review.
+A PDF version of the conflicting-evidence fixture is also included at `test_fixtures/ClearPath_Conflicting_Evidence.pdf` for demonstration and review.
 
 Final intake results:
 
@@ -382,7 +392,7 @@ The prototype is considered functionally complete for its intended local demonst
 
 ### Structured Vendor Risk Review
 
-`clearpath_health_technologies_vendor_risk_review.json`
+`sample_outputs/clearpath_health_technologies_vendor_risk_review.json`
 
 Demonstrates a completed multi-document analysis containing:
 
@@ -396,7 +406,7 @@ Demonstrates a completed multi-document analysis containing:
 
 ### Document Intake Failure
 
-`clearpath_health_technologies_document_intake_failure.json`
+`sample_outputs/clearpath_health_technologies_document_intake_failure.json`
 
 Demonstrates safe failure handling when no usable vendor document is available.
 
@@ -409,7 +419,7 @@ In this scenario, the workflow:
 
 ### Human-Readable PDF Report
 
-`clearpath_health_technologies_vendor_risk_review.pdf`
+`sample_outputs/clearpath_health_technologies_vendor_risk_review.pdf`
 
 Demonstrates the standalone reviewer-facing report generated from the structured analysis.
 
@@ -429,16 +439,38 @@ The report includes:
 
 ## Streamlit Interface
 
-The repository includes screenshots demonstrating the browser-based workflow:
+The screenshots below show the completed browser-based workflow, from validated document intake to conflict detection and human review.
 
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 1.png`
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 2.png`
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 3.png`
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 4.png`
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 5.png`
-- `AI Vendor Risk Review_Streamlit interface_Screenshot 6.png`
+### Document Intake Summary
 
-These screenshots document the working interface from vendor intake through review results and downloadable outputs.
+![Successful two-document vendor intake summary](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%202.png)
+
+*The application reports successful and failed document counts before presenting review results.*
+
+### Document Conflicts and Human Review
+
+![Vendor document conflicts and human review section](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%205.png)
+
+*Materially conflicting vendor statements are retained for human resolution, alongside follow-up questions and review notes.*
+
+<details>
+<summary>View three additional interface screenshots</summary>
+
+#### Evidence and Risk Findings
+
+![Evidence observed and risk findings](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%203.png)
+
+#### Risk Findings and Uncertainties
+
+![Risk findings and uncertainties](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%204.png)
+
+#### Human Review and Downloadable Reports
+
+![Human review and downloadable JSON and PDF reports](screenshots/AI%20Vendor%20Risk%20Review_Streamlit%20interface_Screenshot%206.png)
+
+</details>
+
+The screenshots use synthetic ClearPath vendor evidence and document the working interface through its downloadable review outputs.
 
 ---
 
@@ -446,27 +478,31 @@ These screenshots document the working interface from vendor intake through revi
 
 ```text
 ai-vendor-risk-review/
-│
 ├── app.py
 ├── main.py
 ├── requirements.txt
 ├── .gitignore
 ├── README.md
 │
-├── ClearPath_Test_Security_Overview.txt
-├── ClearPath_Conflicting_Evidence.pdf
-├── create_test_docx.py
+├── screenshots/
+│   ├── AI Vendor Risk Review_Streamlit interface_Screenshot 1.png
+│   ├── AI Vendor Risk Review_Streamlit interface_Screenshot 2.png
+│   ├── AI Vendor Risk Review_Streamlit interface_Screenshot 3.png
+│   ├── AI Vendor Risk Review_Streamlit interface_Screenshot 4.png
+│   ├── AI Vendor Risk Review_Streamlit interface_Screenshot 5.png
+│   └── AI Vendor Risk Review_Streamlit interface_Screenshot 6.png
 │
-├── clearpath_health_technologies_document_intake_failure.json
-├── clearpath_health_technologies_vendor_risk_review.json
-├── clearpath_health_technologies_vendor_risk_review.pdf
+├── test_fixtures/
+│   ├── ClearPath_Test_Security_Overview.txt
+│   └── ClearPath_Conflicting_Evidence.pdf
 │
-├── AI Vendor Risk Review_Streamlit interface_Screenshot 1.png
-├── AI Vendor Risk Review_Streamlit interface_Screenshot 2.png
-├── AI Vendor Risk Review_Streamlit interface_Screenshot 3.png
-├── AI Vendor Risk Review_Streamlit interface_Screenshot 4.png
-├── AI Vendor Risk Review_Streamlit interface_Screenshot 5.png
-└── AI Vendor Risk Review_Streamlit interface_Screenshot 6.png
+├── sample_outputs/
+│   ├── clearpath_health_technologies_document_intake_failure.json
+│   ├── clearpath_health_technologies_vendor_risk_review.json
+│   └── clearpath_health_technologies_vendor_risk_review.pdf
+│
+└── scripts/
+    └── create_test_docx.py
 ```
 
 ### Key Files
@@ -477,20 +513,20 @@ Primary Streamlit application containing the browser-based vendor intake, docume
 **`main.py`**  
 Command-line implementation of the vendor-risk analysis workflow used during development and testing.
 
-**`create_test_docx.py`**  
-Utility for generating the synthetic DOCX evidence fixture used in cross-format testing.
+**`scripts/create_test_docx.py`**  
+Utility for generating the synthetic DOCX evidence fixture inside `test_fixtures/` for cross-format testing.
 
 **Synthetic ClearPath files**  
-Test documents created specifically for workflow validation. They do not contain confidential vendor information.
+Test documents in `test_fixtures/` created specifically for workflow validation. They do not contain confidential vendor information.
 
 **JSON outputs**  
-Demonstrate both successful structured risk analysis and safe intake-failure handling.
+Saved in `sample_outputs/`, demonstrating both successful structured risk analysis and safe intake-failure handling.
 
 **PDF output**  
-Demonstrates the final human-readable vendor-risk report.
+Saved in `sample_outputs/`, demonstrating the final human-readable vendor-risk report.
 
 **Streamlit screenshots**  
-Provide visual documentation of the completed interface and workflow.
+Saved in `screenshots/`, providing visual documentation of the completed interface and workflow.
 
 ---
 
