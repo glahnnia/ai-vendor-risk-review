@@ -614,3 +614,25 @@ Potential future enhancements include:
 - Additional document formats
 - Formal evaluation datasets
 - Automated regression testing
+    
+---
+
+## Project Significance
+
+This project demonstrates how applied AI, structured document processing, and evidence-based analysis can support technology vendor due diligence.
+
+By combining multi-document analysis, source attribution, contradiction detection, structured reporting, and mandatory human oversight, the workflow illustrates how AI can strengthen organizational risk-review processes without replacing human decision-making.
+
+The project also demonstrates practical experience in AI governance, agent-based workflows, document-processing pipelines, prompt-injection safeguards, and automated reporting.
+
+---
+
+**Project Type:** Applied AI Governance & Technology Risk Assessment Portfolio Project  
+**Technologies:** Python 3.12, OpenAI Agents SDK, Pydantic, Streamlit, PyPDF, python-docx, ReportLab  
+**Data Classification:** Synthetic Vendor Documentation / Demonstration Data  
+**Implementation:** Local Functional Prototype  
+**Project Status:** End-to-End Prototype Complete; Regression Testing Passed  
+
+**Developed by Glahnnia "Renee" Rates, MSHS, CCHW II**  
+Public Health Informatics | Applied AI | Workforce Development | Data Analytics
+
